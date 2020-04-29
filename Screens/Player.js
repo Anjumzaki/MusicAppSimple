@@ -4,6 +4,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MusicDetails from '../Component/MusicDetails';
 import PlayControl from '../Component/PlayControl';
 import SoundPlayer from 'react-native-sound-player'
+import Adds from '../Component/BannerAdds';
+import { 
+  AdMobInterstitial, 
+} from 'react-native-admob'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -13,12 +17,18 @@ export default ({navigation, route}) => {
     const [ play , setPlay ] = useState(false);
 
     useEffect(() => {
+      AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/1033173712');
+      AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+      AdMobInterstitial.requestAd().then(() => AdMobInterstitial.showAd());
+    }, [])
+
+    useEffect(() => {
       const playParam = route.params;
       console.log(playParam)
       //Get params , setPlay(params.play);
-    //   if(playParam){
-    //     setPlay(playParam.play)
-    //   }
+      // if(playParam){
+      //   setPlay(playParam.play)
+      // }
     }, [route])
 
     const pauseSong = () => {
@@ -57,8 +67,8 @@ export default ({navigation, route}) => {
             <PlayControl
                 play={play}
                 resumeSong={() => {
-                    resumeSong
                     setPlay(false)
+                    resumeSong()
                     console.log('Resume button')
                 }}
                 pauseSong={
@@ -69,6 +79,7 @@ export default ({navigation, route}) => {
                     }
                 }
             />
+            <Adds />
         </View>
     )} 
     

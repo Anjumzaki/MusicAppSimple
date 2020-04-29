@@ -12,6 +12,12 @@ import {
 import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import MusicFiles from 'react-native-get-music-files';
 import SoundPlayer from 'react-native-sound-player'
+import Sort from '../Component/Sort'
+import Adds from '../Component/BannerAdds';
+import { 
+  AdMobInterstitial, 
+} from 'react-native-admob'
+
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -49,6 +55,12 @@ check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE)
 
 export default ({navigation}) => {
 
+  useEffect(() => {
+    AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/1033173712');
+    AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+    AdMobInterstitial.requestAd().then(() => AdMobInterstitial.showAd());
+  }, [])
+
   const [music, SetMusic]= useState('')
 
   const playSong = (sound) => {
@@ -75,7 +87,7 @@ export default ({navigation}) => {
       minimumSongDuration : 0, // get songs bigger than 10000 miliseconds duration
       path: true
   }).then(tracks => {
-    console.log(tracks)
+    // console.log(tracks)
     SetMusic(tracks)
       // do your stuff...
   }).catch(error => {
@@ -83,7 +95,21 @@ export default ({navigation}) => {
       // catch the error
   })
   }, [MusicFiles])
-    
+
+
+ const sortName=() => {
+    // music.sort(function(a, b){
+    //   if(a.fileName < b.fileName) return alert('a')
+    //   else if (a.fileName > b.fileName) return alert('b')
+    //   // return a-b
+    // });
+    alert('Sort Name')
+  }
+
+  const sortGenre=() => {
+    // music.sort(function(a, b){return a-b});
+    alert('Sort Genre')
+  }
 
   return (
     <>
@@ -91,18 +117,36 @@ export default ({navigation}) => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-            {music.length > 1  && music.map( (tracks, index) => 
-            <TouchableOpacity
-                onPress={() => playSong('file://'+tracks.path)}          
-                style={styles.trackInfoContainer}
-              	key={index}
-              >
-              <Text style={styles.trackInfo}>
-                  {tracks.fileName} {((tracks.duration/1000)/60).toFixed(2)} min
-              </Text>
-            </TouchableOpacity>
+            <View style={{flexDirection:'row', justifyContent:'space-evenly'}}>
+              <Sort
+                name="sort"
+                sortText="Name"
+                onPress={() => sortName()}
+              />
+
+              <Sort
+                name="sort"
+                sortText="Genre"
+                onPress={() => sortGenre()}
+              />
+            </View>
+
+            {music.length > 1  && music.map( (tracks, index) =>
+            <View
+              key={index}>
+                <TouchableOpacity
+                    onPress={() => playSong('file://'+tracks.path)}          
+                    style={styles.trackInfoContainer}
+                    key={index}
+                  >
+                  <Text style={styles.trackInfo}>
+                      {tracks.fileName} {((tracks.duration/1000)/60).toFixed(2)} min
+                  </Text>
+                </TouchableOpacity>
+            </View> 
             )}
         </ScrollView>
+        <Adds />
       </SafeAreaView>
     </>
   );
@@ -112,7 +156,7 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: '#000',
     padding: 10,
-    height: windowHeight
+    height: windowHeight,
   },
   trackInfoContainer: {
     padding: 15,
