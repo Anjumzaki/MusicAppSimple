@@ -49,7 +49,7 @@ check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE)
 
 export default ({navigation}) => {
 
-  const [music, SetMusic]= useState(0)
+  const [music, SetMusic]= useState('')
 
   const playSong = (sound) => {
     try {
@@ -101,7 +101,7 @@ export default ({navigation}) => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-            {music.length > 0 && music.map( (tracks, index) => 
+            {music.length > 1  && music.map( (tracks, index) => 
             <TouchableOpacity
                 onPress={() => navigation.navigate('Player')}
                 style={styles.trackInfoContainer}
@@ -110,14 +110,6 @@ export default ({navigation}) => {
               <Text style={styles.trackInfo}>
                   {tracks.fileName} {((tracks.duration/1000)/60).toFixed(2)} min
               </Text>
-            {/* <TouchableOpacity
-              onPress={() => playSong('file://'+tracks.path)}>
-              <Text style={styles.trackInfo} >Play</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => stopSong()}>
-              <Text style={styles.trackInfo} >Stop</Text>
-            </TouchableOpacity> */}
             </TouchableOpacity>
             )}
         </ScrollView>

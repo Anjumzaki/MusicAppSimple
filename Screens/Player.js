@@ -11,6 +11,7 @@ export default ({navigation}) => {
         <View
             style={styles.safeAreaView}>
             <MusicDetails/>
+
             <PlayControl 
                 onPress={() => navigation.navigate('PlayList')}/>
         </View>
@@ -19,6 +20,8 @@ export default ({navigation}) => {
 const styles = StyleSheet.create({
     safeAreaView: {
         height: windowHeight,
-        backgroundColor: '#000'
+        backgroundColor: '#000',
+        justifyContent:'space-between',
+        flex:1
     }
 })
