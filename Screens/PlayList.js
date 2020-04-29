@@ -54,20 +54,10 @@ export default ({navigation}) => {
   const playSong = (sound) => {
     try {
       SoundPlayer.playUrl(sound)
-      console.log(sound)
+      navigation.navigate('Player', {play: true})
     } catch (e) {
       alert('Cannot play the file')
       console.log('cannot play the song file', e)
-    }
-  }
-
-  const stopSong = () => {
-    try{
-      SoundPlayer.stop()
-    }
-    catch(e){
-      alert('Cannot stop the file')
-      console.log('cannot stop the song file', e)
     }
   }
 
@@ -103,7 +93,7 @@ export default ({navigation}) => {
           style={styles.scrollView}>
             {music.length > 1  && music.map( (tracks, index) => 
             <TouchableOpacity
-                onPress={() => navigation.navigate('Player')}
+                onPress={() => playSong('file://'+tracks.path)}          
                 style={styles.trackInfoContainer}
               	key={index}
               >

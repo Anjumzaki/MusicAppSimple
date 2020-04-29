@@ -12,13 +12,7 @@ export default () => {
             <Stack.Navigator>
                <Stack.Screen name="Player" 
                     component={Player}
-                    options={{
-                        title: '',
-                        headerStyle: {
-                          backgroundColor: '#000',
-                        },
-                        headerBackTitle: 'null'
-                      }}    
+                    options={{ headerShown: false }}    
 
                 />   
                 <Stack.Screen name="PlayList" 

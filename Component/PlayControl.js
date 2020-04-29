@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {SafeAreaView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default props => {
+export default ({play, resumeSong, pauseSong}) => {
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={{flexDirection: 'row', justifyContent: 'center',width:'100%'}}>
@@ -15,18 +16,22 @@ export default props => {
               color="#fff"
             />
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Icon style={styles.icon} name="play" size={52} color="#fff" />
-          </TouchableOpacity>
+          {
+            !play ? (
+              <TouchableOpacity
+                onPress={resumeSong}>
+                <Icon style={styles.icon} name="play" size={52} color="#fff" />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={pauseSong}>
+                <Icon style={styles.icon} name="pause" size={52} color="#fff" />
+              </TouchableOpacity>
+            )
+          }
 
           <TouchableOpacity>
             <Icon style={styles.icon} name="skip-next" size={46} color="#fff" />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.menu}>
-          <TouchableOpacity onPress={props.onPress}>
-            <Icon style={styles.icon} name="menu" size={46} color="#fff" />
           </TouchableOpacity>
         </View>
       </View>
@@ -43,8 +48,5 @@ const styles = StyleSheet.create({
   PlayIcon: {
     flexDirection: 'row',
     justifyContent:'center',
-  },
-  menu: {
-    flexDirection: 'row',
   },
 });
