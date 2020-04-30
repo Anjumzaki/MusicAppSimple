@@ -15,6 +15,10 @@ const windowHeight = Dimensions.get('window').height;
 export default ({navigation, route}) => {
 
     const [ play , setPlay ] = useState(false);
+    var onFinishedPlayingSubscription = null
+    var onFinishedLoadingSubscription = null
+    var onFinishedLoadingFileSubscription = null
+    var onFinishedLoadingURLSubscription = null
 
     useEffect(() => {
       AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/1033173712');
@@ -22,34 +26,18 @@ export default ({navigation, route}) => {
       AdMobInterstitial.requestAd().then(() => AdMobInterstitial.showAd());
     }, [])
 
-    useEffect(() => {
-      const playParam = route.params;
-      console.log(playParam)
-      //Get params , setPlay(params.play);
-      // if(playParam){
-      //   setPlay(playParam.play)
-      // }
-    }, [route])
 
-    // const pauseSong = () => {
-    //     try{
-    //       SoundPlayer.pause()
-    //     }
-    //     catch(e){
-    //       alert('Cannot stop the file')
-    //       console.log('cannot stop the song file', e)
-    //     }
-    //   }
-    
-    //   const resumeSong = () => {
-    //     try{
-    //       SoundPlayer.resume()
-    //     }
-    //     catch(e){
-    //       alert('Cannot stop the file')
-    //       console.log('cannot stop the song file', e)
-    //     }
-    //   }
+    const stopSong = () => {
+        try{
+          SoundPlayer.unmount()
+          navigation.navigate('PlayList')
+        }
+        catch(e){
+          alert('Cannot stop the file')
+          console.log('cannot stop the song file', e)
+        }
+      }
+
       
 
     return(
@@ -57,7 +45,7 @@ export default ({navigation, route}) => {
             style={styles.safeAreaView}>
             <View style={styles.menu}>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('PlayList')}
+                    onPress={() => stopSong()}
                 >
                 <Icon style={styles.icon} name="menu" size={46} color="#fff" />
                 </TouchableOpacity>

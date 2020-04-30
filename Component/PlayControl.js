@@ -40,16 +40,6 @@ export default () => {
     <SafeAreaView style={styles.safeAreaView}>
       <View style={{flexDirection: 'row', justifyContent: 'center',width:'100%'}}>
         <View style={styles.PlayIcon}>
-          <TouchableOpacity>
-            <Icon
-              style={styles.icon}
-              name="skip-previous"
-              size={46}
-              color="#fff"
-            />
-          </TouchableOpacity>
-          {/* {
-            !play ? ( */}
               <TouchableOpacity
                 onPress={() => resumeSong()}
                 disabled={playDisable}>
@@ -59,7 +49,6 @@ export default () => {
                   size={52} 
                   color={playDisable ? "#A9A9A9" : '#FFF'} />
               </TouchableOpacity>
-            {/* ) : ( */}
               <TouchableOpacity
                 onPress={() => pauseSong()}
                 disabled={pauseDisable}>
@@ -69,12 +58,6 @@ export default () => {
                   size={46} 
                   color={pauseDisable ? "#A9A9A9" : '#FFF'} />
               </TouchableOpacity>
-            {/* )
-          } */}
-
-          <TouchableOpacity>
-            <Icon style={styles.icon} name="skip-next" size={46} color="#fff" />
-          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
