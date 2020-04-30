@@ -31,25 +31,25 @@ export default ({navigation, route}) => {
       // }
     }, [route])
 
-    const pauseSong = () => {
-        try{
-          SoundPlayer.pause()
-        }
-        catch(e){
-          alert('Cannot stop the file')
-          console.log('cannot stop the song file', e)
-        }
-      }
+    // const pauseSong = () => {
+    //     try{
+    //       SoundPlayer.pause()
+    //     }
+    //     catch(e){
+    //       alert('Cannot stop the file')
+    //       console.log('cannot stop the song file', e)
+    //     }
+    //   }
     
-      const resumeSong = () => {
-        try{
-          SoundPlayer.resume()
-        }
-        catch(e){
-          alert('Cannot stop the file')
-          console.log('cannot stop the song file', e)
-        }
-      }
+    //   const resumeSong = () => {
+    //     try{
+    //       SoundPlayer.resume()
+    //     }
+    //     catch(e){
+    //       alert('Cannot stop the file')
+    //       console.log('cannot stop the song file', e)
+    //     }
+    //   }
       
 
     return(
